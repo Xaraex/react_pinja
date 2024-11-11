@@ -1,15 +1,12 @@
-function CVGeneratorPage() {
-    return (
-      <div className="space-y-6">
-        <h1 className="text-3xl font-bold">CV Generaattori</h1>
-        <p className="text-muted-foreground">
-          Luo ja muokkaa CV:itä helposti.
-        </p>
-        <div className="rounded-lg border p-4">
-          <p>CV:n luonti ja muokkaus tulee tähän...</p>
-        </div>
-      </div>
-    );
-  }
-  
-  export default CVGeneratorPage;
+// C:/Users/e2301997/Desktop/react_pinja/src/components/pages/ConsultantsPage.jsx
+import ConsultantList from '../organisms/ConsultantList/ConsultantList';
+
+const ConsultantsPage = () => {
+  return (
+    <div className="container mx-auto">
+      <ConsultantList />
+    </div>
+  );
+};
+
+export default ConsultantsPage;

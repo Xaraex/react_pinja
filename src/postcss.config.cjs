@@ -1,4 +1,3 @@
-// C:/Users/e2301997/Desktop/react_pinja/postcss.config.js
 module.exports = {
   plugins: {
     tailwindcss: {},
