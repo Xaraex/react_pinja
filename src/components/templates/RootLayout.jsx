@@ -1,58 +1,94 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Menu, X, ChevronRight } from 'lucide-react';
 
 function RootLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const location = useLocation();
+
+  const navigation = [
+    { name: 'Etusivu', path: '/' },
+    { name: 'Konsultit', path: '/konsultit' },
+    { name: 'CV Generaattori', path: '/cv-generaattori' }
+  ];
+
+  const isActivePath = (path) => {
+    if (path === '/') {
+      return location.pathname === path;
+    }
+    return location.pathname.startsWith(path);
+  };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-14 items-center">
+        <div className="container flex h-14 max-w-screen-2xl items-center">
           <button
-            className="mr-4 hover:text-primary"
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className="mr-4 p-2 hover:bg-accent rounded-md lg:hidden"
           >
-            ☰
+            {isSidebarOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
-          <div className="mr-4 hidden md:flex">
+          
+          <div className="mr-4 flex">
             <Link to="/" className="mr-6 flex items-center space-x-2">
-              <span className="font-bold">Pinja Osaaminen</span>
+              <span className="font-bold text-xl">Pinja Osaaminen</span>
             </Link>
-            <nav className="flex items-center space-x-6 text-sm font-medium">
-              <Link to="/consultants" className="transition-colors hover:text-primary">
-                Konsultit
-              </Link>
-              <Link to="/cv-generator" className="transition-colors hover:text-primary">
-                CV Generaattori
-              </Link>
-            </nav>
           </div>
+
+          <nav className="hidden lg:flex items-center space-x-6">
+            {navigation.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`text-sm transition-colors hover:text-primary ${
+                  isActivePath(item.path) ? 'text-primary font-medium' : 'text-muted-foreground'
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </nav>
         </div>
       </header>
 
-      {/* Main content */}
-      <div className="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10">
+      <div className="flex-1 container max-w-screen-2xl flex">
         {/* Sidebar */}
-        {isSidebarOpen && (
-          <aside className="fixed top-14 z-30 -ml-2 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 overflow-y-auto border-r md:sticky md:block">
-            <nav className="grid items-start px-4 py-6 lg:px-8">
-              <Link to="/" className="flex items-center py-2">
-                Etusivu
+        <aside 
+          className={`
+            fixed lg:relative inset-y-0 z-30 
+            w-64 shrink-0 border-r bg-background
+            transition-transform duration-300
+            lg:translate-x-0
+            ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+          `}
+        >
+          <nav className="space-y-1 p-4">
+            {navigation.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`
+                  flex items-center space-x-2 px-3 py-2 rounded-md
+                  transition-colors
+                  ${isActivePath(item.path) 
+                    ? 'bg-accent text-accent-foreground' 
+                    : 'hover:bg-accent/50'}
+                `}
+              >
+                <ChevronRight 
+                  size={16} 
+                  className={isActivePath(item.path) ? 'opacity-100' : 'opacity-0'}
+                />
+                <span>{item.name}</span>
               </Link>
-              <Link to="/consultants" className="flex items-center py-2">
-                Konsultit
-              </Link>
-              <Link to="/cv-generator" className="flex items-center py-2">
-                CV Generaattori
-              </Link>
-            </nav>
-          </aside>
-        )}
+            ))}
+          </nav>
+        </aside>
 
-        {/* Main */}
-        <main className="flex w-full flex-col overflow-hidden">
+        {/* Main content */}
+        <main className="flex-1 px-4 py-6">
           <Outlet />
         </main>
       </div>
