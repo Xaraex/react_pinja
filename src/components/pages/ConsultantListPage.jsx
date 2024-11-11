@@ -1,8 +1,15 @@
 function ConsultantListPage() {
+    console.log('ConsultantListPage rendered'); // Lisätään debug-loki
+    
     return (
-      <div className="flex-1 space-y-4 p-8 pt-6">
-        <h1 className="text-3xl font-bold">Konsultit</h1>
-        <p>Konsulttien listaus tulee tähän.</p>
+      <div className="space-y-6">
+        <h1 className="text-3xl font-bold">Konsulttien hallinta</h1>
+        <p className="text-muted-foreground">
+          Selaa ja hallinnoi konsulttien profiileja.
+        </p>
+        <div className="rounded-lg border p-4">
+          <p>Konsulttilista tulee tähän...</p>
+        </div>
       </div>
     );
   }

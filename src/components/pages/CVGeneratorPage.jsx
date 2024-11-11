@@ -1,8 +1,13 @@
 function CVGeneratorPage() {
     return (
-      <div className="flex-1 space-y-4 p-8 pt-6">
+      <div className="space-y-6">
         <h1 className="text-3xl font-bold">CV Generaattori</h1>
-        <p>CV:n luonti ja muokkaus tulee tähän.</p>
+        <p className="text-muted-foreground">
+          Luo ja muokkaa CV:itä helposti.
+        </p>
+        <div className="rounded-lg border p-4">
+          <p>CV:n luonti ja muokkaus tulee tähän...</p>
+        </div>
       </div>
     );
   }
