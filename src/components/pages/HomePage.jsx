@@ -1,4 +1,4 @@
-// C:/Users/e2301997/Desktop/react_pinja/src/components/pages/HomePage.jsx
+// HomePage.jsx
 import { useQuery } from '@tanstack/react-query';
 import { getConsultants } from '../../services/mockData';
 import { Users, Award, Briefcase, Code } from 'lucide-react';
@@ -24,26 +24,10 @@ const DashboardStats = ({ consultants }) => {
   if (!consultants?.length) return null;
 
   const stats = [
-    {
-      title: 'Konsultteja',
-      value: consultants.length,
-      icon: Users
-    },
-    {
-      title: 'Sertifikaatteja',
-      value: consultants.reduce((sum, c) => sum + (c.certifications?.length || 0), 0),
-      icon: Award
-    },
-    {
-      title: 'Projekteja',
-      value: consultants.reduce((sum, c) => sum + (c.projects?.length || 0), 0),
-      icon: Briefcase
-    },
-    {
-      title: 'Teknologioita',
-      value: new Set(consultants.flatMap(c => c.skills?.map(s => s.name) || [])).size,
-      icon: Code
-    }
+    { title: 'Konsultteja', value: consultants.length, icon: Users },
+    { title: 'Sertifikaatteja', value: consultants.reduce((sum, c) => sum + (c.certifications?.length || 0), 0), icon: Award },
+    { title: 'Projekteja', value: consultants.reduce((sum, c) => sum + (c.projects?.length || 0), 0), icon: Briefcase },
+    { title: 'Teknologioita', value: new Set(consultants.flatMap(c => c.skills?.map(s => s.name) || [])).size, icon: Code }
   ];
 
   return (
@@ -103,7 +87,7 @@ const TopSkills = ({ consultants }) => {
   );
 };
 
-const HomePage = () => {
+export const HomePage = () => {
   const { data: consultants, isLoading, error } = useQuery({
     queryKey: ['consultants'],
     queryFn: getConsultants
@@ -134,14 +118,12 @@ const HomePage = () => {
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Dashboard</h1>
       </div>
-      
+
       <DashboardStats consultants={consultants} />
-      
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <TopSkills consultants={consultants} />
       </div>
     </div>
   );
 };
-
-export default HomePage;

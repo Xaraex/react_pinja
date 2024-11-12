@@ -1,12 +1,9 @@
-// C:/Users/e2301997/Desktop/react_pinja/src/components/pages/ConsultantsPage.jsx
-import ConsultantList from '../organisms/ConsultantList/ConsultantList';
-
-const ConsultantsPage = () => {
+// CVGeneratorPage.jsx
+export const CVGeneratorPage = () => {
   return (
-    <div className="container mx-auto">
-      <ConsultantList />
+    <div>
+      <h1>CV Generator Page</h1>
+      {/* Additional content for the CV generator */}
     </div>
   );
 };
-
-export default ConsultantsPage;

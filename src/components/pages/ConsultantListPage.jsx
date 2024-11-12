@@ -2,7 +2,7 @@ import { useConsultants } from '../../hooks/useConsultants';
 import ConsultantList from '../organisms/ConsultantList/ConsultantList';
 import ConsultantFilters from '../organisms/ConsultantList/ConsultantFilters';
 
-const ConsultantListPage = () => {
+export const ConsultantListPage = () => {
   const {
     consultants,
     loading,
@@ -41,7 +41,7 @@ const ConsultantListPage = () => {
         onExperienceChange={updateExperienceFilter}
       />
 
-      <ConsultantList 
+      <ConsultantList
         consultants={consultants}
         loading={loading}
       />

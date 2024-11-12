@@ -1,8 +1,9 @@
+// RootLayout.jsx
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { Menu, X, ChevronRight } from 'lucide-react';
 
-function RootLayout() {
+export function RootLayout() { // Changed to named export
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const location = useLocation();
 
@@ -21,7 +22,6 @@ function RootLayout() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-14 max-w-screen-2xl items-center">
           <button
@@ -30,7 +30,7 @@ function RootLayout() {
           >
             {isSidebarOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
-          
+
           <div className="mr-4 flex">
             <Link to="/" className="mr-6 flex items-center space-x-2">
               <span className="font-bold text-xl">Pinja Osaaminen</span>
@@ -42,9 +42,8 @@ function RootLayout() {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`text-sm transition-colors hover:text-primary ${
-                  isActivePath(item.path) ? 'text-primary font-medium' : 'text-muted-foreground'
-                }`}
+                className={`text-sm transition-colors hover:text-primary ${isActivePath(item.path) ? 'text-primary font-medium' : 'text-muted-foreground'
+                  }`}
               >
                 {item.name}
               </Link>
@@ -54,8 +53,7 @@ function RootLayout() {
       </header>
 
       <div className="flex-1 container max-w-screen-2xl flex">
-        {/* Sidebar */}
-        <aside 
+        <aside
           className={`
             fixed lg:relative inset-y-0 z-30 
             w-64 shrink-0 border-r bg-background
@@ -72,13 +70,13 @@ function RootLayout() {
                 className={`
                   flex items-center space-x-2 px-3 py-2 rounded-md
                   transition-colors
-                  ${isActivePath(item.path) 
-                    ? 'bg-accent text-accent-foreground' 
+                  ${isActivePath(item.path)
+                    ? 'bg-accent text-accent-foreground'
                     : 'hover:bg-accent/50'}
                 `}
               >
-                <ChevronRight 
-                  size={16} 
+                <ChevronRight
+                  size={16}
                   className={isActivePath(item.path) ? 'opacity-100' : 'opacity-0'}
                 />
                 <span>{item.name}</span>
@@ -87,7 +85,6 @@ function RootLayout() {
           </nav>
         </aside>
 
-        {/* Main content */}
         <main className="flex-1 px-4 py-6">
           <Outlet />
         </main>
@@ -95,5 +92,3 @@ function RootLayout() {
     </div>
   );
 }
-
-export default RootLayout;
